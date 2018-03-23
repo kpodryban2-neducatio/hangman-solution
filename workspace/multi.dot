@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hangman</title>
+  <link rel="stylesheet" href="./index.css"/>
+  <style>
+    {{~it.words :word:index}}
+    #game-{{=index+1}} { counter-reset: round-{{=index+1}}; }
+    #game-{{=index+1}} h3.tries:after { content: counter(round-{{=index+1}}); }
+
+    /*#round-{{=index+1}}:target ~ #game-{{=index+1}} { top: 0; }
+    #round-{{=index+1}}:target ~ #start { top: -100%; }*/
+
+    #round-{{=index+1}}:checked ~ #game-{{=index+1}} { top: 0; }
+    #round-{{=index+1}}:checked ~ #start { top: -100%; }
+
+    {{~word.lettersInWord :letter}}
+    #{{=letter}}{{=index+1}}:checked ~ .container .keyboard label[for={{=letter}}{{=index+1}}] {
+      color: #aaa; counter-increment: round-{{=index+1}}; border-color: green; }
+    #{{=letter}}{{=index+1}}:checked ~ .word [data-letter="{{=letter}}"]:before {
+      content: attr(data-letter); display: block; }
+    {{~}}
+
+    #game-{{=index+1}}{{~word.lettersInWord :letter}} .correct:checked ~{{~}} .won { display: block; }
+
+    {{~word.lettersNotInWord :letter}}
+    #{{=letter}}{{=index+1}}:checked ~ .container .keyboard label[for={{=letter}}{{=index+1}}] {
+      color: #aaa; counter-increment: round-{{=index+1}}; border-color: red; }
+    {{~}}
+    {{~}}
+  </style>
+</head>
+<body>
+  {{~it.words :word:index}}
+
+  <!--<a id="round-{{=index+1}}" class="anchor"></a>-->
+  <input id="round-{{=index+1}}" type="radio" class="anchor" name="round"/>
+  {{~}}
+  <div id="start">
+    <!--<a href="#round-1">Rozpocznij</a>-->
+    <label class="start btn" for="round-1">Rozpocznij</label>
+  </div>
+  {{~it.words :word:index}}
+  <div class="game" id="game-{{=index+1}}">
+    <h3>RUNDA {{=index+1}}</h3>
+    {{~it.alphabet :letter}}
+    <input type="radio" autocomplete="off" id="{{=letter}}{{=index+1}}"
+           class="{{?word.lettersInWord.includes(letter)}}correct{{??}}wrong{{?}}"/>
+    {{~}}
+    <p class="word">
+      {{~word.letters :letter}}
+        <span data-letter="{{=letter}}"></span>
+      {{~}}
+    </p>
+    <div class="container">
+      <ul class="keyboard">
+        {{~it.alphabet :letter}}
+        <li><label class="key" for="{{=letter}}{{=index+1}}">{{=letter}}</label></li>
+        {{~}}
+      </ul>
+      <div class="hangman">
+        <div class="gallows">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div class="noose">
+            <div class="head">
+              <div class="body">
+                <div class="left-hand"></div>
+                <div class="right-hand"></div>
+                <div class="left-leg"></div>
+                <div class="right-leg"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="tries">LICZBA PRÓB: </h3>
+    <div class="won">
+      <h1>BRAWO!!!</h1>
+      {{?index < it.numWords-1}}
+     <!-- <a href="#round-{{=index+2}}">KOLEJNA RUNDA</a>-->
+      <label class="btn next-round" for="round-{{=index+2}}">KOLEJNA RUNDA</a>
+      {{??}}
+      <h3>UKOŃCZYŁEŚ GRĘ!!!</h3>
+      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+      {{?}}
+    </div>
+    <div class="loose">
+      <h1>PRZEGRAŁEŚ!</h1>
+      <h2>Nie odgadłeś słowa: {{=word.word}}</h2>
+      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+    </div>
+  </div>
+  {{~}}
+</body>
+</html>

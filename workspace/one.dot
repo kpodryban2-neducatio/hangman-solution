@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hangman</title>
+  <link rel="stylesheet" href="./index.css"/>
+  <style>
+    #game { counter-reset: round; }
+    #game h3.tries:after { content: counter(round); }
+
+    {{~it.lettersInWord :letter}}
+    #{{=letter}}:checked ~ .container .keyboard label[for={{=letter}}] {
+      color: #aaa; counter-increment: round; border-color: green; }
+    #{{=letter}}:checked ~ .word [data-letter="{{=letter}}"]:before {
+      content: attr(data-letter); display: block; }
+    {{~}}
+
+    #game{{~it.lettersInWord :letter}} .correct:checked ~{{~}} .won { display: block; }
+
+    {{~it.lettersNotInWord :letter}}
+    #{{=letter}}:checked ~ .container .keyboard label[for={{=letter}}] {
+      pointer-events: none; color: #aaa; counter-increment: round; border-color: red; }
+    {{~}}
+  </style>
+</head>
+<body>
+  <div id="game">
+
+    {{~it.lettersInWord :letter}}
+    <input type="checkbox" autocomplete="off" id="{{=letter}}" class="correct"/>
+    {{~}}
+    {{~it.lettersNotInWord :letter}}
+    <input type="checkbox" autocomplete="off" id="{{=letter}}" class="wrong"/>
+    {{~}}
+    <p class="word">
+      {{~it.letters :letter}}
+        <span data-letter="{{=letter}}"></span>
+      {{~}}
+    </p>
+    <div class="container">
+      <ul class="keyboard">
+        {{~it.alphabet :letter}}
+        <li><label class="key" for="{{=letter}}">{{=letter}}</label></li>
+        {{~}}
+      </ul>
+      <div class="hangman">
+        <div class="gallows">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div class="noose">
+            <div class="head">
+              <div class="body">
+                <div class="left-hand"></div>
+                <div class="right-hand"></div>
+                <div class="left-leg"></div>
+                <div class="right-leg"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="tries">LICZBA PRÓB: </h3>
+    <div class="won">
+      <h1>BRAWO!!!</h1>
+      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+    </div>
+    <div class="loose">
+      <h1>PRZEGRAŁEŚ!</h1>
+      <h2>Nie odgadłeś słowa: {{=it.word}}</h2>
+      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+    </div>
+  </div>
+</body>
+</html>
