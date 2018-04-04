@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
   <title>Hangman</title>
   <link rel="stylesheet" href="./index.css"/>
   <style>
     {{~it.words :word:index}}
+
     #game-{{=index+1}} { counter-reset: round-{{=index+1}}; }
     #game-{{=index+1}} h3.tries:after { content: counter(round-{{=index+1}}); }
 
-    /*#round-{{=index+1}}:target ~ #game-{{=index+1}} { top: 0; }
-    #round-{{=index+1}}:target ~ #start { top: -100%; }*/
+    /*#round-{{=index+1}}:target ~ #game-{{=index+1}} { top: 0; }*/
+    /*#round-{{=index+1}}:target ~ #start { top: -100%; }*/
 
     #round-{{=index+1}}:checked ~ #game-{{=index+1}} { top: 0; }
     #round-{{=index+1}}:checked ~ #start { top: -100%; }
@@ -18,11 +19,13 @@
     {{~word.lettersInWord :letter}}
     #{{=letter}}{{=index+1}}:checked ~ .container .keyboard label[for={{=letter}}{{=index+1}}] {
       color: #aaa; counter-increment: round-{{=index+1}}; border-color: green; }
+
     #{{=letter}}{{=index+1}}:checked ~ .word [data-letter="{{=letter}}"]:before {
       content: attr(data-letter); display: block; }
+
     {{~}}
 
-    #game-{{=index+1}}{{~word.lettersInWord :letter}} .correct:checked ~{{~}} .won { display: block; }
+    #game-{{=index+1}}{{~word.lettersInWord :letter}} .correct:checked ~{{~}} .win { display: block; }
 
     {{~word.lettersNotInWord :letter}}
     #{{=letter}}{{=index+1}}:checked ~ .container .keyboard label[for={{=letter}}{{=index+1}}] {
@@ -80,17 +83,17 @@
       </div>
     </div>
     <h3 class="tries">LICZBA PRÓB: </h3>
-    <div class="won">
+    <div class="win">
       <h1>BRAWO!!!</h1>
       {{?index < it.numWords-1}}
-     <!-- <a href="#round-{{=index+2}}">KOLEJNA RUNDA</a>-->
+      <!--<a href="#round-{{=index+2}}">KOLEJNA RUNDA</a>-->
       <label class="btn next-round" for="round-{{=index+2}}">KOLEJNA RUNDA</a>
       {{??}}
       <h3>UKOŃCZYŁEŚ GRĘ!!!</h3>
       <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
       {{?}}
     </div>
-    <div class="loose">
+    <div class="lose">
       <h1>PRZEGRAŁEŚ!</h1>
       <h2>Nie odgadłeś słowa: {{=word.word}}</h2>
       <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>

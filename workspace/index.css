@@ -40,8 +40,8 @@ input { position: absolute; left: -32000em; }
 .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .container .right-hand,
 .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .container .left-leg,
 .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .container .right-leg,
-.wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .loose { display: block; }
-.won, .loose { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,.9); text-align: center; }
+.wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .wrong:checked ~ .lose { display: block; }
+.win, .lose { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,.9); text-align: center; }
 h1 { margin: 5rem auto 2rem; }
 h1 + h2 { margin: 2rem 0 3rem; }
 .btn { font-size: 2rem; padding: 1rem; border-radius: 0.5rem; background-color: #eee; border: 1px solid #999; color: #000; text-decoration: none; }
