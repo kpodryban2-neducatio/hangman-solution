@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Hangman</title>
   <link rel="stylesheet" href="./index.css"/>
+  <link rel="stylesheet" href="./stylesheet.css"/>
   <style>
     {{~it.words :word:index}}
 
@@ -42,11 +43,11 @@
   {{~}}
   <div id="start">
     <!--<a href="#round-1">Rozpocznij</a>-->
-    <label class="start btn" for="round-1">Rozpocznij</label>
+    <label class="start btn" for="round-1">BEGIN HACKING THE PENTAGON</label>
   </div>
   {{~it.words :word:index}}
   <div class="game" id="game-{{=index+1}}">
-    <h3>RUNDA {{=index+1}}</h3>
+    <h3>TRIAL No. {{=index+1}}</h3>
     {{~it.alphabet :letter}}
     <input type="radio" autocomplete="off" id="{{=letter}}{{=index+1}}"
            class="{{?word.lettersInWord.includes(letter)}}correct{{??}}wrong{{?}}"/>
@@ -82,21 +83,21 @@
         </div>
       </div>
     </div>
-    <h3 class="tries">LICZBA PRÓB: </h3>
+    <h3 class="tries">TRIALS: </h3>
     <div class="win">
-      <h1>BRAWO!!!</h1>
+      <h1>WE'VE BEATEN THE FIREWALL!!!</h1>
       {{?index < it.numWords-1}}
       <!--<a href="#round-{{=index+2}}">KOLEJNA RUNDA</a>-->
-      <label class="btn next-round" for="round-{{=index+2}}">KOLEJNA RUNDA</a>
+      <label class="btn next-round" for="round-{{=index+2}}">GO DEEPER</a>
       {{??}}
-      <h3>UKOŃCZYŁEŚ GRĘ!!!</h3>
-      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+      <h3>WE'RE IN!!!</h3>
+      <form action="/"><button class="btn" type="submit">WANNA GO AGAIN?</button></form>
       {{?}}
     </div>
     <div class="lose">
-      <h1>PRZEGRAŁEŚ!</h1>
-      <h2>Nie odgadłeś słowa: {{=word.word}}</h2>
-      <form action="/"><button class="btn" type="submit">JESZCZE RAZ</button></form>
+      <h1>FUCK, THEY'RE ON TO US!</h1>
+      <h2>THE PASSWORD YOU WERE LOOKING FOR WAS {{=word.word}}</h2>
+      <form action="/"><button class="btn" type="submit">WANNA GO AGAIN?</button></form>
     </div>
   </div>
   {{~}}
